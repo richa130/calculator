@@ -1,18 +1,15 @@
 const display = document.querySelector('.display');
 const numbers = document.querySelectorAll('.number'); 
 const operators = document.querySelectorAll('.operator');
-const equals = document.querySelector('.equals');
+const buttons = document.querySelectorAll('.buttons');
+const equal = document.querySelector('.equal');
+const clear = document.querySelector('.clear');
 
 let numOne = 0;
 let currOperator = '';
 let numTwo = 0;
 
-numbers.forEach(number => number.addEventListener('click', event => {
-    let currNum = document.createElement('span');
-    currNum.textContent = event.target.textContent;
-
-    updateDisplay(currNum);
-}));
+numbers.forEach(number => number.addEventListener('click', event => updateDisplay(event.target.textContent)));
 
 operators.forEach(operator => operator.addEventListener('click', event => {
     numOne = +display.textContent;
@@ -21,21 +18,29 @@ operators.forEach(operator => operator.addEventListener('click', event => {
     resetDisplay();
 }));
 
-equals.addEventListener('click', event => {
+equal.addEventListener('click', event => {
     numTwo = +display.textContent;
-    let result = document.createElement('span');
-    result.textContent = operate(currOperator, numOne, numTwo);
 
     resetDisplay();
-    updateDisplay(result);
+    updateDisplay(operate(currOperator, numOne, numTwo));
     
     numOne = 0; numTwo = 0; currOperator = '';
 });
 
-/****************************** backend functions ******************************/ 
+clear.addEventListener('click', event => {
+    resetDisplay();
+    numOne = 0; numTwo = 0; currOperator = '';
+});
 
-function updateDisplay(currNum) {
-    display.appendChild(currNum);
+buttons.forEach(button => button.addEventListener('click', clickButton ));
+
+/****************************************************** backend functions ******************************************************/ 
+
+function updateDisplay(value) {
+    let currDisplay = document.createElement('span');
+    currDisplay.textContent = value;
+
+    display.appendChild(currDisplay);
 }
 
 function resetDisplay() {
@@ -43,6 +48,15 @@ function resetDisplay() {
     displaySpans.forEach(currSpan => display.removeChild(currSpan));
 }
 
+function clickButton(event) {
+    let buttonStyle = event.target.style;
+
+    buttonStyle.color = 'white';
+    buttonStyle.borderTop = '2px solid black';
+    buttonStyle.borderLeft = '2px solid black';
+    buttonStyle.borderBottom = '2px solid white';
+    buttonStyle.borderRight = '2px solid white';
+}
 
 function add(x, y) {
     return x + y;
@@ -66,9 +80,12 @@ function operate(operator, x, y) {
             return add(x, y);
         case '-':
             return subtract(x, y);
-        case '*':
+        case 'x':
             return multiply(x, y);
         case '/':
+            if(y == 0) {
+                return 'Division by 0 :(';
+            }
             return divide(x, y);
     }
 }
