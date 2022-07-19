@@ -28,12 +28,3 @@ function operate(operator, x, y) {
             return 'operation not supported';    
     }
 }
-
-console.log(operate('+', 2, 3));
-console.log(operate('+', 777, 90));
-console.log(operate('-', 2, 3));
-console.log(operate('-', 100, 50));
-console.log(operate('*', 2, 3));
-console.log(operate('/', 2, 3));
-console.log(operate('/', 10, 2));
-console.log(operate('/', 10, 3));
