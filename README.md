@@ -1,6 +1,6 @@
-This project solidified my understanding of DOM manipulation/events in JavaScript
+This project solidified my understanding of DOM manipulation/events in JavaScript.
 
-Link to project:
+Link to project: []()
 
 The process:
 
