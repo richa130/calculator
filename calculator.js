@@ -8,36 +8,34 @@ const clear = document.querySelector('.clear');
 let numOne = 0;
 let currOperator = '';
 let numTwo = 0;
-let currResult = 0;
+let operationPerformed = false;
 
 numbers.forEach(number => number.addEventListener('click', event => {
-    // if(numOne && !numTwo) {
-    //     resetDisplay();
-    // }
+    if(operationPerformed) {
+        resetDisplay();
+        operationPerformed = false;
+    }
 
-    updateDisplay(event.target.textContent)
+    updateDisplay(event.target.textContent);
 }));
 
 operators.forEach(operator => operator.addEventListener('click', event => {
-    if(numOne && display.textContent) {
-        //console.log('display: ' + display.textContent);
+    if(numOne && !numTwo && display.textContent) {
         numTwo = +display.textContent;
         let result = operate(currOperator, numOne, numTwo);
-        console.log(`numOne: ${numOne}, currOperator: ${currOperator}, numTwo: ${numTwo}, result: ${result}`);
 
         resetDisplay();
         updateDisplay(result);
 
-        numOne = result; currOperator = event.target.textContent; numTwo = 0;
-        console.log(`numOne: ${numOne}, currOperator: ${currOperator}, numTwo: ${numTwo}`);
+        numOne = result; numTwo = 0; currOperator = event.target.textContent; operationPerformed = true;
     }
     else {
         numOne = +display.textContent;
         currOperator = event.target.textContent;
-        console.log(`numOne: ${numOne}, currOperator: ${currOperator}, numTwo: ${numTwo}`);
 
         resetDisplay();
     }
+    
 }));
 
 equal.addEventListener('click', event => {
@@ -46,7 +44,7 @@ equal.addEventListener('click', event => {
     resetDisplay();
     updateDisplay(operate(currOperator, numOne, numTwo));
     
-    numOne = 0; numTwo = 0; currOperator = '';
+    numOne = 0; numTwo = 0; currOperator = ''; operationPerformed = true;
 });
 
 clear.addEventListener('click', event => {
