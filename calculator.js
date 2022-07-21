@@ -39,12 +39,14 @@ operators.forEach(operator => operator.addEventListener('click', event => {
 }));
 
 equal.addEventListener('click', event => {
-    numTwo = +display.textContent;
+    if(numOne && currOperator && display.textContent) {
+        numTwo = +display.textContent;
 
-    resetDisplay();
-    updateDisplay(operate(currOperator, numOne, numTwo));
-    
-    numOne = 0; numTwo = 0; currOperator = ''; operationPerformed = true;
+        resetDisplay();
+        updateDisplay(operate(currOperator, numOne, numTwo));
+        
+        numOne = 0; numTwo = 0; currOperator = ''; operationPerformed = true;
+    }
 });
 
 clear.addEventListener('click', event => {
@@ -118,6 +120,10 @@ function operate(operator, x, y) {
             if(y == 0) {
                 return 'Division by 0 :(';
             }
-            return divide(x, y);
+            let res = divide(x, y);
+            if(res % 1 != 0) {
+                return res.toFixed(5);
+            }
+            return res;
     }
 }
