@@ -1,7 +1,7 @@
 const display = document.querySelector('.display');
 const numbers = document.querySelectorAll('.number'); 
 const operators = document.querySelectorAll('.operator');
-const buttons = document.querySelectorAll('.buttons button');
+const buttons = document.querySelectorAll('.buttons div');
 const equal = document.querySelector('.equal');
 const clear = document.querySelector('.clear');
 
@@ -118,7 +118,7 @@ function operate(operator, x, y) {
             return multiply(x, y);
         case '/':
             if(y == 0) {
-                return 'Division by 0 :(';
+                return 'Can\'t \\ by 0';
             }
             let res = divide(x, y);
             if(res % 1 != 0) {
