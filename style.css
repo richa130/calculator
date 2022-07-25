@@ -1,13 +1,17 @@
 body {
-    background-color: #cdc6ae;
+    background-color: #c3cdae;
     font-family: 'Orbitron', 'Times New Roman', Times, serif;
     
+    height: 95vh;
+}
+
+.container {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     
-    height: 95vh;
+    height: 95%;
 }
 
 .calculator {
@@ -26,7 +30,6 @@ body {
 }
 
 .display {
-    background-color: #a3b4a2;
     border-right: 3px solid black;
     border-bottom: 3px solid black;
     border-left: 2px solid white;
@@ -74,8 +77,9 @@ body {
     width: 81px;
 }
 
-.operator, .decimal, .equal {
-    background-color: #a3b4a2;
+.operator, .decimal, .equal, .display {
+    background-color: rgb(99, 145, 141);
+    
 }
 
 .number {
@@ -86,7 +90,10 @@ body {
     background-color: #2589bd;
 }
 
-a {
+.footer {
     font-family: 'Times New Roman';
-    color: #a9a28b;
+    color: #a2ab90;
+    text-align: center;
+
+    margin-top: 30px;
 }

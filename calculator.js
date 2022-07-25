@@ -4,11 +4,14 @@ const operators = document.querySelectorAll('.operator');
 const buttons = document.querySelectorAll('.buttons div');
 const equal = document.querySelector('.equal');
 const clear = document.querySelector('.clear');
+const decimal = document.querySelector('.decimal');
+const back = document.querySelector('.back');
 
 let numOne = 0;
 let currOperator = '';
 let numTwo = 0;
 let operationPerformed = false;
+let decimalClicked = false;
 
 numbers.forEach(number => number.addEventListener('click', event => {
     if(operationPerformed) {
@@ -20,18 +23,20 @@ numbers.forEach(number => number.addEventListener('click', event => {
 }));
 
 operators.forEach(operator => operator.addEventListener('click', event => {
-    if(numOne && !numTwo && display.textContent) {
+    if(numOne && !numTwo && display.textContent && !operationPerformed) {
         numTwo = +display.textContent;
         let result = operate(currOperator, numOne, numTwo);
 
         resetDisplay();
         updateDisplay(result);
 
-        numOne = result; numTwo = 0; currOperator = event.target.textContent; operationPerformed = true;
+        numOne = result; numTwo = 0; currOperator = event.target.textContent; operationPerformed = true; 
+        decimalClicked = false;
     }
     else {
         numOne = +display.textContent;
         currOperator = event.target.textContent;
+        decimalClicked = false;
 
         resetDisplay();
     }
@@ -45,13 +50,34 @@ equal.addEventListener('click', event => {
         resetDisplay();
         updateDisplay(operate(currOperator, numOne, numTwo));
         
-        numOne = 0; numTwo = 0; currOperator = ''; operationPerformed = true;
+        numOne = 0; numTwo = 0; currOperator = ''; operationPerformed = true; 
+        decimalClicked = false;
     }
 });
 
 clear.addEventListener('click', event => {
     resetDisplay();
-    numOne = 0; numTwo = 0; currOperator = '';
+    numOne = 0; numTwo = 0; currOperator = ''; operationPerformed = false; decimalClicked = false; 
+});
+
+decimal.addEventListener('click', event => {
+    if(operationPerformed) {
+        resetDisplay();
+        operationPerformed = false;
+    }
+
+    if(!decimalClicked) {
+        updateDisplay(event.target.textContent);
+        decimalClicked = true;
+    }
+    
+});
+
+back.addEventListener('click', event => {
+    const lastChild = display.lastElementChild;
+    if(lastChild) {
+        display.removeChild(lastChild);
+    }
 });
 
 // for the button 'animation'
