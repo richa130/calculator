@@ -1,6 +1,6 @@
 This project solidified my understanding of DOM manipulation/events in JavaScript.
 
-Link to project: []()
+Link to project: [https://richa130.github.io/calculator/](https://richa130.github.io/calculator/)
 
 The process:
 
