@@ -11,7 +11,6 @@ let numOne = 0;
 let currOperator = '';
 let numTwo = 0;
 let operationPerformed = false;
-let decimalClicked = false;
 
 numbers.forEach(number => number.addEventListener('click', event => {
     if(operationPerformed) {
@@ -31,12 +30,10 @@ operators.forEach(operator => operator.addEventListener('click', event => {
         updateDisplay(result);
 
         numOne = result; numTwo = 0; currOperator = event.target.textContent; operationPerformed = true; 
-        decimalClicked = false;
     }
     else {
         numOne = +display.textContent;
         currOperator = event.target.textContent;
-        decimalClicked = false;
 
         resetDisplay();
     }
@@ -51,26 +48,18 @@ equal.addEventListener('click', event => {
         updateDisplay(operate(currOperator, numOne, numTwo));
         
         numOne = 0; numTwo = 0; currOperator = ''; operationPerformed = true; 
-        decimalClicked = false;
     }
 });
 
 clear.addEventListener('click', event => {
     resetDisplay();
-    numOne = 0; numTwo = 0; currOperator = ''; operationPerformed = false; decimalClicked = false; 
+    numOne = 0; numTwo = 0; currOperator = ''; operationPerformed = false;
 });
 
 decimal.addEventListener('click', event => {
-    if(operationPerformed) {
-        resetDisplay();
-        operationPerformed = false;
-    }
-
-    if(!decimalClicked) {
+    if(!display.textContent.includes('.')) {
         updateDisplay(event.target.textContent);
-        decimalClicked = true;
     }
-    
 });
 
 back.addEventListener('click', event => {
@@ -142,9 +131,9 @@ function operate(operator, x, y) {
             return subtract(x, y);
         case 'x':
             return multiply(x, y);
-        case '/':
+        default:
             if(y == 0) {
-                return 'Can\'t \\ by 0';
+                return 'Can\'t / by 0';
             }
             let res = divide(x, y);
             if(res % 1 != 0) {
